@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background-primary: #0a0a0c;
+  --color-background-secondary: #141418;
+  --color-background-card: #1c1c21;
+  --color-accent-primary: #00f2ff;
+  --color-accent-secondary: #7000ff;
+  --color-border: #2d2d35;
+  --color-success: #00ff88;
+  --color-error: #ff4d4d;
+  --color-warning: #ffcc00;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #9ea4b0;
+  
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  --shadow-neon: 0 0 10px rgba(0, 242, 255, 0.4);
+}
+
+@layer base {
+  body {
+    @apply bg-background-primary text-text-primary antialiased font-sans overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-background-card/80 backdrop-blur-xl border border-border/50 rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-8 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-accent-primary/30;
+  }
+
+  .card-header-gradient {
+    @apply absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-accent-primary/20 to-transparent;
+  }
+
+  .btn {
+    @apply cursor-pointer px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs transition-all duration-300 flex items-center justify-center gap-3 relative overflow-hidden active:scale-95;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-accent-primary to-accent-secondary text-black shadow-lg shadow-accent-primary/20 hover:shadow-accent-primary/40 hover:-translate-y-1;
+  }
+
+  .btn-stop {
+    @apply bg-gradient-to-br from-error to-[#7a0000] text-white shadow-lg shadow-error/20 hover:shadow-error/40 hover:brightness-110;
+  }
+
+  .btn-secondary {
+    @apply bg-background-secondary/50 backdrop-blur-md border border-border/50 text-text-primary hover:bg-background-secondary hover:border-accent-primary/50 hover:shadow-neon/20;
+  }
+
+  .btn:disabled {
+    @apply opacity-30 cursor-not-allowed grayscale;
+  }
+
+  .input-label {
+    @apply text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary mb-2;
+  }
+
+  .transcript-area {
+    @apply flex-1 bg-black/40 backdrop-blur-xl rounded-[1.5rem] p-8 font-mono text-2xl leading-relaxed overflow-y-auto min-h-[300px] whitespace-pre-wrap break-all border border-border/30 shadow-inner;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .transcript-area::-webkit-scrollbar {
+    width: 6px;
+  }
+  .transcript-area::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full hover:bg-accent-primary/50;
+  }
+}
+
+/* Enhanced Sidebar */
+.dictionary-sidebar {
+  @apply fixed top-0 -right-[450px] w-full md:w-[450px] h-screen bg-background-card/95 backdrop-blur-2xl border-l border-accent-primary/20 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-6 md:p-10 flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)];
+}
+
+.dictionary-sidebar.open {
+  @apply right-0;
+}
+
+.dict-item {
+  @apply flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/5 transition-all duration-300 hover:bg-accent-primary/10 hover:border-accent-primary/30 hover:translate-x-2;
+}
+
+.dict-char {
+  @apply text-2xl font-black text-text-primary;
+}
+
+.dict-code {
+  @apply font-mono text-base font-bold text-accent-primary tracking-tighter;
+}
+
+/* Animations */
+@keyframes pulse-custom {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.animate-pulse-custom {
+  animation: pulse-custom 1.5s infinite;
+}
+
+.overlay {
+  @apply fixed top-0 left-0 w-screen h-screen bg-black/80 backdrop-blur-md z-40 transition-all duration-500;
+}
+
+.drag-overlay {
+  @apply fixed top-0 left-0 w-full h-full bg-accent-primary/5 backdrop-blur-2xl z-[100] flex items-center justify-center pointer-events-none transition-all duration-300;
+}
+
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-in {
+  animation: zoom-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
