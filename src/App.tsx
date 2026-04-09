@@ -253,7 +253,7 @@ const App: React.FC = () => {
         history.push(maxVal * 100);
         const smoothedVolume = history.reduce((a, b) => a + b) / history.length;
 
-        let currentState = lastState;
+        let currentState: 'SOUND' | 'SILENCE' = lastState;
         if (lastState === 'SILENCE' && smoothedVolume > activeThreshold) {
             currentState = 'SOUND';
         } else if (lastState === 'SOUND' && smoothedVolume < (activeThreshold - hysteresis)) {
